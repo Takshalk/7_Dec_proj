@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Management</title>
+    <script>
+        function showConfirmation() {
+            alert("Employee details Added successfully!");
+        }
+    </script>
+</head>
+<body>
+    
+    <!-- Employee List -->
+    <h2>Employee Management System</h2>
+        <a href="/Emp/list-employee">Reload Employee List</a>
+    
+    
+    
+     <table border="1">
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Thymeleaf Loop to Display Employees -->
+            <tr th:each="emp : ${employees}">
+                <td th:text="${emp.emp_id}"></td>
+                <td th:text="${emp.name}"></td>
+                <td th:text="${emp.loc}"></td>
+                <td th:text="${emp.sal}"></td>
+                <td>
+                    <!-- Update Button -->
+                    <form th:action="@{/update-employee/{id}(id=${emp.emp_id})}" method="get">
+                        <button type="submit">Update</button>
+                    </form>
+                    <!-- Delete Button -->
+                    <form th:action="@{/delete-employee/{id}(id=${emp.emp_id})}" method="post">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+</body>
+</html>
